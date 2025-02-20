@@ -1,0 +1,126 @@
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - R.O.B.O</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Bem vindo ao R.O.B.O</h1>
+        <button id="ligarRoboButton">Ligar Robo</button>
+        <button id="inclinarCabecaButton">Inclinar Cabeca</button>
+        <button id="rotacionarCabecaButton">Rotacionar Cabeca</button>
+        <button id="moverCotoveloButton">Mover Cotovelo</button>
+        <button id="rotacionarPulsoButton">Rotacionar Pulso</button>
+        <div id="roboStatus"></div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('#ligarRoboButton').click(function () {
+                $.ajax({
+                    url: '/v1/LigarRobo',
+                    type: 'GET',
+                    success: function (data) {
+                        var statusHtml = '<p>Robo ligado com sucesso!</p>';
+                        statusHtml += '<p>CABECA:</p>';
+                        statusHtml += '<p>Inclinacao: ' + data.cabeca.inclinacao + '</p>';
+                        statusHtml += '<p>Rotacao: ' + data.cabeca.rotacao + '</p>';
+                        statusHtml += '<p>BRACO DIREITO:</p>';
+                        statusHtml += '<p>Cotovelo: ' + data.bracoDireito.cotovelo + '</p>';
+                        statusHtml += '<p>Pulso: ' + data.bracoDireito.pulso + '</p>';
+                        statusHtml += '<p>BRACO ESQUERDO:</p>';
+                        statusHtml += '<p>Cotovelo: ' + data.bracoEsquerdo.cotovelo + '</p>';
+                        statusHtml += '<p>Pulso: ' + data.bracoEsquerdo.pulso + '</p>';
+                        $('#roboStatus').html(statusHtml);
+                    },
+                    error: function () {
+                        $('#roboStatus').html('<p>Erro ao ligar o robo.</p>');
+                    }
+                });
+            });
+
+            $('#inclinarCabecaButton').click(function () {
+                var inclinacao = prompt("Digite a inclinacao da cabeca (ex: 0, 1, 2):");
+                $.ajax({
+                    url: '/v1/InclinarCabeca',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(parseInt(inclinacao)),
+                    success: function (data) {
+                        var statusHtml = '<p>Cabeca inclinada com sucesso!</p>';
+                        statusHtml += '<p>Inclinacao: ' + data.cabeca.inclinacao + '</p>';
+                        $('#roboStatus').html(statusHtml);
+                    },
+                    error: function () {
+                        $('#roboStatus').html('<p>Erro ao inclinar a cabeca.</p>');
+                    }
+                });
+            });
+
+            $('#rotacionarCabecaButton').click(function () {
+                var rotacao = prompt("Digite a rotacao da cabeca (ex: 0, 1, 2):");
+                $.ajax({
+                    url: '/v1/RotacionarCabeca',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(parseInt(rotacao)),
+                    success: function (data) {
+                        var statusHtml = '<p>Cabeca rotacionada com sucesso!</p>';
+                        statusHtml += '<p>Rotacao: ' + data.cabeca.rotacao + '</p>';
+                        $('#roboStatus').html(statusHtml);
+                    },
+                    error: function () {
+                        $('#roboStatus').html('<p>Erro ao rotacionar a cabeca.</p>');
+                    }
+                });
+            });
+
+            $('#moverCotoveloButton').click(function () {
+                var posicao = prompt("Digite a posicao do cotovelo (ex: 0, 1, 2):");
+                var lado = prompt("Digite o lado do braco (0 para direito, 1 para esquerdo):");
+                $.ajax({
+                    url: '/v1/MoverCotovelo',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(parseInt(posicao), parseInt(lado)),
+                    success: function (data) {
+                        var statusHtml = '<p>Cotovelo movido com sucesso!</p>';
+                        statusHtml += '<p>Cotovelo: ' + data.bracoDireito.cotovelo + '</p>';
+                        $('#roboStatus').html(statusHtml);
+                    },
+                    error: function () {
+                        $('#roboStatus').html('<p>Erro ao mover o cotovelo.</p>');
+                    }
+                });
+            });
+
+            $('#rotacionarPulsoButton').click(function () {
+                var rotacao = prompt("Digite a rotacao do pulso (ex: 0, 1, 2):");
+                var lado = prompt("Digite o lado do braco (0 para direito, 1 para esquerdo):");
+                $.ajax({
+                    url: '/v1/RotacionarPulso',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(parseInt(rotacao), parseInt(lado)),
+                    success: function (data) {
+                        var statusHtml = '<p>Pulso rotacionado com sucesso!</p>';
+                        statusHtml += '<p>Pulso: ' + data.bracoDireito.pulso + '</p>';
+                        $('#roboStatus').html(statusHtml);
+                    },
+                    error: function () {
+                        $('#roboStatus').html('<p>Erro ao rotacionar o pulso.</p>');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
