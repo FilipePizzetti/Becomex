@@ -6,12 +6,10 @@ namespace ROBO.Domain.Entities
     {
         public EBracoLado LadoBraco { get; set; }
         public Cotovelo Cotovelo { get; set; }
-        public Pulso Pulso { get; set; }
         public Braco(EBracoLado ladoBraco)
         {
             LadoBraco = ladoBraco;
             Cotovelo = new Cotovelo();
-            Pulso = new Pulso();
         }
     }
 }

@@ -10,7 +10,7 @@ builder.Services.AddSwaggerGen();
 //builder.Services.AddControllers();
 builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton<Robo>();
-builder.Services.AddScoped<IRoboService, RoboService>();
+builder.Services.AddSingleton<IRoboService, RoboServiceRico>();
 
 var app = builder.Build();
 

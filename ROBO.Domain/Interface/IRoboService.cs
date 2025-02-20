@@ -5,6 +5,7 @@ namespace ROBO.Domain.Interface
 {
     public interface IRoboService
     {
+        Robo ObterEstadoAtual();
         Robo LigarRobo();
         Robo InclinarCabeca(ECabecaInclinacao inclinacao);
         Robo RotacionarCabeca(ECabecaRotacao rotacao);

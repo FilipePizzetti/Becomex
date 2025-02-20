@@ -29,15 +29,40 @@ namespace ROBO.API.Controllers
                 bracoDireito = new
                 {
                     cotovelo = robo.BracoDireito.Cotovelo.Posicao.ToString(),
-                    pulso = robo.BracoDireito.Pulso.Rotacao.ToString()
+                    pulso = robo.BracoDireito.Cotovelo.Pulso.Rotacao.ToString()
                 },
                 bracoEsquerdo = new
                 {
                     cotovelo = robo.BracoEsquerdo.Cotovelo.Posicao.ToString(),
-                    pulso = robo.BracoEsquerdo.Pulso.Rotacao.ToString()
+                    pulso = robo.BracoEsquerdo.Cotovelo.Pulso.Rotacao.ToString()
                 }
             });
         }
+
+        [HttpGet("/v1/ObterEstadoAtual")]
+        public IActionResult ObterEstadoAtual()
+        {
+            var robo = _roboService.ObterEstadoAtual();
+            return Json(new
+            {
+                cabeca = new
+                {
+                    inclinacao = robo.Cabeca.Inclinacao.ToString(),
+                    rotacao = robo.Cabeca.Rotacao.ToString()
+                },
+                bracoDireito = new
+                {
+                    cotovelo = robo.BracoDireito.Cotovelo.Posicao.ToString(),
+                    pulso = robo.BracoDireito.Cotovelo.Pulso.Rotacao.ToString()
+                },
+                bracoEsquerdo = new
+                {
+                    cotovelo = robo.BracoEsquerdo.Cotovelo.Posicao.ToString(),
+                    pulso = robo.BracoEsquerdo.Cotovelo.Pulso.Rotacao.ToString()
+                }
+            });
+        }
+
         [HttpPost("/v1/RotacionarCabeca")]
         public IActionResult RotacionarCabeca([FromBody] int rotacao)
         {
@@ -76,12 +101,12 @@ namespace ROBO.API.Controllers
                 bracoDireito = new
                 {
                     cotovelo = state.BracoDireito.Cotovelo.Posicao.ToString(),
-                    pulso = state.BracoDireito.Pulso.Rotacao.ToString()
+                    pulso = state.BracoDireito.Cotovelo.Pulso.Rotacao.ToString()
                 },
                 bracoEsquerdo = new
                 {
                     cotovelo = state.BracoEsquerdo.Cotovelo.Posicao.ToString(),
-                    pulso = state.BracoEsquerdo.Pulso.Rotacao.ToString()
+                    pulso = state.BracoEsquerdo.Cotovelo.Pulso.Rotacao.ToString()
                 }
             });
         }
@@ -99,12 +124,12 @@ namespace ROBO.API.Controllers
                 bracoDireito = new
                 {
                     cotovelo = state.BracoDireito.Cotovelo.Posicao.ToString(),
-                    pulso = state.BracoDireito.Pulso.Rotacao.ToString()
+                    pulso = state.BracoDireito.Cotovelo.Pulso.Rotacao.ToString()
                 },
                 bracoEsquerdo = new
                 {
                     cotovelo = state.BracoEsquerdo.Cotovelo.Posicao.ToString(),
-                    pulso = state.BracoEsquerdo.Pulso.Rotacao.ToString()
+                    pulso = state.BracoEsquerdo.Cotovelo.Pulso.Rotacao.ToString()
                 }
             });
         }
