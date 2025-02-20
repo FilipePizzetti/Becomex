@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ROBO.Domain", "ROBO.Domain\ROBO.Domain.csproj", "{FE4B127E-FDF9-471A-92AA-FF9185CE9B13}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ROBO.Application", "ROBO.Application\ROBO.Application.csproj", "{6300E421-54E0-4213-88B3-33A5F929AB88}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ROBO.API", "ROBO.API\ROBO.API.csproj", "{F1C4B9D7-D1D6-4923-8013-9F50438198C1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FE4B127E-FDF9-471A-92AA-FF9185CE9B13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE4B127E-FDF9-471A-92AA-FF9185CE9B13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE4B127E-FDF9-471A-92AA-FF9185CE9B13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE4B127E-FDF9-471A-92AA-FF9185CE9B13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6300E421-54E0-4213-88B3-33A5F929AB88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6300E421-54E0-4213-88B3-33A5F929AB88}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6300E421-54E0-4213-88B3-33A5F929AB88}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6300E421-54E0-4213-88B3-33A5F929AB88}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1C4B9D7-D1D6-4923-8013-9F50438198C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1C4B9D7-D1D6-4923-8013-9F50438198C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1C4B9D7-D1D6-4923-8013-9F50438198C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1C4B9D7-D1D6-4923-8013-9F50438198C1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
