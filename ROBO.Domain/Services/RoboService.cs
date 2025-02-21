@@ -56,7 +56,7 @@ namespace ROBO.Domain.Services
             }
             else
             {
-                _robo.BracoEsquerdo.Cotovelo.Pulso.Rotacionar(rotacao, _robo.BracoDireito.Cotovelo.Posicao);
+                _robo.BracoEsquerdo.Cotovelo.Pulso.Rotacionar(rotacao, _robo.BracoEsquerdo.Cotovelo.Posicao);
             }
             return _robo;
         }

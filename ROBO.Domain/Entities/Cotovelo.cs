@@ -16,7 +16,9 @@ namespace ROBO.Domain.Entities
         {
             if (!ValidadorProgressaoDeEstados.ValidaProgressaoDeEstados(Posicao, novaPosicao))
             {
-                throw new InvalidOperationException("Nao e possivel alterar mais de uma progressao por estado.");
+                var estadosValidos = ObterEstadosValidos.ObterEstadosDeProgressaoValidos(Posicao);
+                string estadosPermitidos = string.Join(", ", estadosValidos.Select(e => e.GetDescription()));
+                throw new InvalidOperationException("Não é permitido alterar de " + Posicao.GetDescription() + " para " + novaPosicao.GetDescription() + ". Voce pode alterar para " + estadosPermitidos + ".");
             }
 
             Posicao = novaPosicao;

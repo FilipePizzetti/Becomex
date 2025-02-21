@@ -20,42 +20,52 @@
         <button id="moverCotoveloButton">Mover Cotovelo</button>
         <button id="rotacionarPulsoButton">Rotacionar Pulso</button>
         <div id="roboStatus"></div>
+        <div id="roboState" style="display: none;">
+            <h2>Estado do Robo</h2>
+            <p id="estadoCabeca"></p>
+            <p id="estadoBracoDireito"></p>
+            <p id="estadoBracoEsquerdo"></p>
+        </div>
     </div>
 
     <script>
+        function atualizarEstadoRobo(data) {
+            if (data.cabeca) {
+                $('#estadoCabeca').html('<strong>CABEÇA:</strong> Inclinaçao: ' + data.cabeca.inclinacao + ', Rotaçao: ' + data.cabeca.rotacao);
+            }
+            if (data.bracoDireito) {
+                $('#estadoBracoDireito').html('<strong>BRACO DIREITO:</strong> Cotovelo: ' + data.bracoDireito.cotovelo + ', Pulso: ' + data.bracoDireito.pulso);
+            }
+            if (data.bracoEsquerdo) {
+                $('#estadoBracoEsquerdo').html('<strong>BRACO ESQUERDO:</strong> Cotovelo: ' + data.bracoEsquerdo.cotovelo + ', Pulso: ' + data.bracoEsquerdo.pulso);
+            }
+            $('#roboState').show();
+        }
+
         $(document).ready(function () {
             $('#ligarRoboButton').click(function () {
                 $.ajax({
                     url: '/v1/LigarRobo',
                     type: 'GET',
                     success: function (data) {
-                        if (data.cabeca) 
-                        {
+                        if (data.cabeca) {
                             var statusHtml = '<p>Robo ligado com sucesso!</p>';
-                            statusHtml += '<p>CABECA:</p>';
-                            statusHtml += '<p>Inclinacao: ' + data.cabeca.inclinacao + '</p>';
-                            statusHtml += '<p>Rotacao: ' + data.cabeca.rotacao + '</p>';
-                            statusHtml += '<p>BRACO DIREITO:</p>';
-                            statusHtml += '<p>Cotovelo: ' + data.bracoDireito.cotovelo + '</p>';
-                            statusHtml += '<p>Pulso: ' + data.bracoDireito.pulso + '</p>';
-                            statusHtml += '<p>BRACO ESQUERDO:</p>';
-                            statusHtml += '<p>Cotovelo: ' + data.bracoEsquerdo.cotovelo + '</p>';
-                            statusHtml += '<p>Pulso: ' + data.bracoEsquerdo.pulso + '</p>';
                             $('#roboStatus').html(statusHtml);
-                        } else if(data.error) {
-                            $('#roboStatus').html('<p>Erro ao inclinar a cabeca: ' + data.error + '</p>');
+                            atualizarEstadoRobo(data);
+                        } else if (data.error) {
+                            $('#roboStatus').html('<p>Erro ao ligar o robo: ' + data.error + '</p>');
                         } else {
-                            $('#roboStatus').html('<p>Erro desconhecido ao inclinar a cabeca.</p>');
+                            $('#roboStatus').html('<p>Erro desconhecido ao ligar o robo.</p>');
                         }
                     },
                     error: function () {
-                        $('#roboStatus').html('<p>Erro ao ligar o robo. </p>');
+                        $('#roboStatus').html('<p>Erro ao ligar o robo.</p>');
                     }
                 });
             });
 
             $('#inclinarCabecaButton').click(function () {
-                var inclinacao = prompt("Digite a inclinacao da cabeca (ex: 0, 1, 2):");
+                var inclinacao = prompt("Digite a inclinação da cabeça:\n1. Para Cima\n2. Em Repouso\n3. Para Baixo");
                 $.ajax({
                     url: '/v1/InclinarCabeca',
                     type: 'POST',
@@ -63,62 +73,62 @@
                     data: JSON.stringify(parseInt(inclinacao)),
                     success: function (data) {
                         if (data.cabeca) {
-                            var statusHtml = '<p>Cabeca inclinada com sucesso!</p>';
-                            statusHtml += '<p>Inclinacao: ' + data.cabeca.inclinacao + '</p>';
+                            var statusHtml = '<p>Cabeça inclinada com sucesso!</p>';
                             $('#roboStatus').html(statusHtml);
+                            atualizarEstadoRobo(data);
                         } else if (data.error) {
-                            $('#roboStatus').html('<p>Erro ao inclinar a cabeca: ' + data.error + '</p>');
+                            $('#roboStatus').html('<p>Erro ao inclinar a cabeça: ' + data.error + '</p>');
                         } else {
-                            $('#roboStatus').html('<p>Erro desconhecido ao inclinar a cabeca.</p>');
+                            $('#roboStatus').html('<p>Erro desconhecido ao inclinar a cabeça.</p>');
                         }
                     },
                     error: function () {
-                        $('#roboStatus').html('<p>Erro ao inclinar a cabeca.</p>');
+                        $('#roboStatus').html('<p>Erro ao inclinar a cabeça.</p>');
                     }
                 });
             });
 
             $('#rotacionarCabecaButton').click(function () {
-                var rotacao = prompt("Digite a rotacao da cabeca (ex: 0, 1, 2):");
+                var rotacao = prompt("Digite a rotacao da cabeça:\n1. Rotação -90º\n2. Rotação - 45º\n3. Em Repouso\n4. Rotação 45º\n5. Rotação 90º");
                 $.ajax({
                     url: '/v1/RotacionarCabeca',
                     type: 'POST',
                     contentType: 'application/json',
                     data: JSON.stringify(parseInt(rotacao)),
                     success: function (data) {
-                        if (data.cabeca) { 
-                            var statusHtml = '<p>Cabeca rotacionada com sucesso!</p>';
-                            statusHtml += '<p>Rotacao: ' + data.cabeca.rotacao + '</p>';
+                        if (data.cabeca) {
+                            var statusHtml = '<p>Cabeça rotacionada com sucesso!</p>';
                             $('#roboStatus').html(statusHtml);
+                            atualizarEstadoRobo(data);
                         } else if (data.error) {
-                            $('#roboStatus').html('<p>Erro ao inclinar a cabeca: ' + data.error + '</p>');
+                            $('#roboStatus').html('<p>Erro ao rotacionar a cabeça: ' + data.error + '</p>');
                         } else {
-                            $('#roboStatus').html('<p>Erro desconhecido ao inclinar a cabeca.</p>');
-                        }                        
+                            $('#roboStatus').html('<p>Erro desconhecido ao rotacionar a cabeça.</p>');
+                        }
                     },
                     error: function () {
-                        $('#roboStatus').html('<p>Erro ao inclinar a cabeca: </p>');
+                        $('#roboStatus').html('<p>Erro ao rotacionar a cabeça.</p>');
                     }
                 });
             });
 
             $('#moverCotoveloButton').click(function () {
-                var posicao = prompt("Digite a posicao do cotovelo (ex: 0, 1, 2):");
-                var lado = prompt("Digite o lado do braco (0 para direito, 1 para esquerdo):");
+                var posicao = prompt("Digite a posicao do cotovelo:\n1. Em Repouso\n2. Levemente Contraído\n3. Contraído\n4. Fortemente Contraído");
+                var lado = prompt("Digite o lado do braço:\n1. Direito\n2. Esquerdo");
                 $.ajax({
                     url: '/v1/MoverCotovelo',
                     type: 'POST',
                     contentType: 'application/json',
-                    data: JSON.stringify(parseInt(posicao), parseInt(lado)),
+                    data: JSON.stringify({ posicao: parseInt(posicao), lado: parseInt(lado) }),
                     success: function (data) {
-                        if (data.bracoDireito) {
+                        if (data.cabeca) {
                             var statusHtml = '<p>Cotovelo movido com sucesso!</p>';
-                            statusHtml += '<p>Cotovelo: ' + data.bracoDireito.cotovelo + '</p>';
                             $('#roboStatus').html(statusHtml);
-                        } else if(data.error) {
-                            $('#roboStatus').html('<p>Erro ao inclinar a cabeca: ' + data.error + '</p>');
+                            atualizarEstadoRobo(data);
+                        } else if (data.error) {
+                            $('#roboStatus').html('<p>Erro ao mover o cotovelo: ' + data.error + '</p>');
                         } else {
-                            $('#roboStatus').html('<p>Erro desconhecido ao inclinar a cabeca.</p>');
+                            $('#roboStatus').html('<p>Erro desconhecido ao mover o cotovelo.</p>');
                         }
                     },
                     error: function () {
@@ -128,22 +138,22 @@
             });
 
             $('#rotacionarPulsoButton').click(function () {
-                var rotacao = prompt("Digite a rotacao do pulso (ex: 0, 1, 2):");
-                var lado = prompt("Digite o lado do braco (0 para direito, 1 para esquerdo):");
+                var rotacao = prompt("Digite a rotaçao do pulso:\n1. Rotação para -90º\n2. Rotação para - 45º\n3. Em Repouso\n4. Rotação para 45º\n5. Rotação para 90º\n6. Rotação para 135º\n7. Rotação para 180º");
+                var lado = prompt("Digite o lado do braço:\n1. Direito\n2. Esquerdo");
                 $.ajax({
                     url: '/v1/RotacionarPulso',
                     type: 'POST',
                     contentType: 'application/json',
-                    data: JSON.stringify(parseInt(rotacao), parseInt(lado)),
+                    data: JSON.stringify({ rotacao: parseInt(rotacao), lado: parseInt(lado) }),
                     success: function (data) {
-                        if(data.bracoDireito) {
+                        if (data.bracoDireito || data.bracoEsquerdo) {
                             var statusHtml = '<p>Pulso rotacionado com sucesso!</p>';
-                            statusHtml += '<p>Pulso: ' + data.bracoDireito.pulso + '</p>';
                             $('#roboStatus').html(statusHtml);
+                            atualizarEstadoRobo(data);
                         } else if (data.error) {
-                            $('#roboStatus').html('<p>Erro ao inclinar a cabeca: ' + data.error + '</p>');
+                            $('#roboStatus').html('<p>Erro ao rotacionar o pulso: ' + data.error + '</p>');
                         } else {
-                            $('#roboStatus').html('<p>Erro desconhecido ao inclinar a cabeca.</p>');
+                            $('#roboStatus').html('<p>Erro desconhecido ao rotacionar o pulso.</p>');
                         }
                     },
                     error: function () {

@@ -13,14 +13,17 @@ namespace ROBO.Domain.Entities
 
         public void Rotacionar(EPulsoRotacao novaRotacao, ECotoveloPosicao posicaoCotovelo)
         {
-            if (!ValidadorProgressaoDeEstados.ValidaProgressaoDeEstados(Rotacao, novaRotacao))
-            {
-                throw new InvalidOperationException("Nao e possivel alterar mais de uma progressao por estado.");
-            }
 
             if (posicaoCotovelo != ECotoveloPosicao.FortementeContraido)
             {
                 throw new InvalidOperationException("O pulso só pode ser rotacionado se o cotovelo estiver fortemente contraído.");
+            }
+
+            if (!ValidadorProgressaoDeEstados.ValidaProgressaoDeEstados(Rotacao, novaRotacao))
+            {
+                var estadosValidos = ObterEstadosValidos.ObterEstadosDeProgressaoValidos(Rotacao);
+                string estadosPermitidos = string.Join(", ", estadosValidos.Select(e => e.GetDescription()));
+                throw new InvalidOperationException("Não é permitido alterar de " + Rotacao.GetDescription() + " para " + novaRotacao.GetDescription() + ". Voce pode alterar para " + estadosPermitidos + ".");
             }
 
             Rotacao = novaRotacao;
