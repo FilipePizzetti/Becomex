@@ -15,10 +15,10 @@
     <div class="container">
         <h1>Bem vindo ao R.O.B.O</h1>
         <button id="ligarRoboButton">Ligar Robo</button>
-        <button id="inclinarCabecaButton">Inclinar Cabeca</button>
-        <button id="rotacionarCabecaButton">Rotacionar Cabeca</button>
-        <button id="moverCotoveloButton">Mover Cotovelo</button>
-        <button id="rotacionarPulsoButton">Rotacionar Pulso</button>
+        <button id="inclinarCabecaButton" disabled>Inclinar Cabeca</button>
+        <button id="rotacionarCabecaButton" disabled>Rotacionar Cabeca</button>
+        <button id="moverCotoveloButton" disabled>Mover Cotovelo</button>
+        <button id="rotacionarPulsoButton" disabled>Rotacionar Pulso</button>
         <div id="roboStatus"></div>
         <div id="roboState" style="display: none;">
             <h2>Estado do Robo</h2>
@@ -44,6 +44,7 @@
 
         $(document).ready(function () {
             $('#ligarRoboButton').click(function () {
+                $(this).prop('disabled', true);
                 $.ajax({
                     url: '/v1/LigarRobo',
                     type: 'GET',
@@ -52,10 +53,16 @@
                             var statusHtml = '<p>Robo ligado com sucesso!</p>';
                             $('#roboStatus').html(statusHtml);
                             atualizarEstadoRobo(data);
+                            $('#inclinarCabecaButton').prop('disabled', false);
+                            $('#rotacionarCabecaButton').prop('disabled', false);
+                            $('#moverCotoveloButton').prop('disabled', false);
+                            $('#rotacionarPulsoButton').prop('disabled', false);
                         } else if (data.error) {
                             $('#roboStatus').html('<p>Erro ao ligar o robo: ' + data.error + '</p>');
+                            $('#ligarRoboButton').prop('disabled', false);
                         } else {
                             $('#roboStatus').html('<p>Erro desconhecido ao ligar o robo.</p>');
+                            $('#ligarRoboButton').prop('disabled', false);
                         }
                     },
                     error: function () {
