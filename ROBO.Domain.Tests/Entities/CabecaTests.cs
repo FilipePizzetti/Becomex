@@ -1,7 +1,7 @@
 using ROBO.Domain.Entities;
 using ROBO.Domain.Enums;
 
-namespace ROBO.Domain.Tests
+namespace ROBO.Domain.Tests.Entities
 {
     [TestClass]
     public class CabecaTests

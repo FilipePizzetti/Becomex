@@ -5,8 +5,8 @@ namespace ROBO.Domain.Entities
 {
     public class Cotovelo
     {
-        public ECotoveloPosicao Posicao { get; set; }
-        public Pulso Pulso { get; set; }
+        public ECotoveloPosicao Posicao { get; private set; }
+        public Pulso Pulso { get; private set; }
         public Cotovelo()
         {
             Posicao = ECotoveloPosicao.EmRepouso;

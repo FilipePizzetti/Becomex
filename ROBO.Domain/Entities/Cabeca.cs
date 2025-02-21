@@ -5,12 +5,12 @@ namespace ROBO.Domain.Entities
 {
     public class Cabeca
     {
-        public ECabecaInclinacao Inclinacao { get; set; }
-        public ECabecaRotacao Rotacao { get; set; }
+        public ECabecaInclinacao Inclinacao { get; private set; }
+        public ECabecaRotacao Rotacao { get; private set; }
         public Cabeca()
         {
             Inclinacao = ECabecaInclinacao.EmRepouso;
-            Rotacao = ECabecaRotacao.Repouso;
+            Rotacao = ECabecaRotacao.EmRepouso;
         }
         public void Rotacionar(ECabecaRotacao novaRotacao)
         {

@@ -4,9 +4,9 @@ namespace ROBO.Domain.Entities
 {
     public class Robo
     {
-        public Cabeca Cabeca { get; set; }
-        public Braco BracoDireito { get; set; }
-        public Braco BracoEsquerdo { get; set; }
+        public Cabeca Cabeca { get; private set; }
+        public Braco BracoDireito { get; private set; }
+        public Braco BracoEsquerdo { get; private set; }
         public Robo()
         {
             Cabeca = new Cabeca();

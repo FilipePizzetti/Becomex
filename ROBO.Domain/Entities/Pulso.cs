@@ -5,10 +5,10 @@ namespace ROBO.Domain.Entities
 {
     public class Pulso
     {
-        public EPulsoRotacao Rotacao { get; set; }
+        public EPulsoRotacao Rotacao { get; private set; }
         public Pulso()
         {
-            Rotacao = EPulsoRotacao.Repouso;
+            Rotacao = EPulsoRotacao.EmRepouso;
         }
 
         public void Rotacionar(EPulsoRotacao novaRotacao, ECotoveloPosicao posicaoCotovelo)

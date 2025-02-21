@@ -1,7 +1,7 @@
 ﻿using ROBO.Domain.Enums;
 using ROBO.Domain.Utils;
 
-namespace ROBO.Domain.Tests
+namespace ROBO.Domain.Tests.Utils
 {
     [TestClass]
     public class ValidadorProgressaoDeEstadosTests
@@ -9,7 +9,7 @@ namespace ROBO.Domain.Tests
         [TestMethod]
         public void NaoPodeSaltarMaisDeUmEstado()
         {
-            var progressao = ValidadorProgressaoDeEstados.ValidaProgressaoDeEstados(ECabecaRotacao.Repouso, ECabecaRotacao.RotacaoMenos90);
+            var progressao = ValidadorProgressaoDeEstados.ValidaProgressaoDeEstados(ECabecaRotacao.EmRepouso, ECabecaRotacao.RotacaoMenos90);
             Assert.IsFalse(progressao);
         }
     }

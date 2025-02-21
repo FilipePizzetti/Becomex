@@ -29,20 +29,27 @@
                     url: '/v1/LigarRobo',
                     type: 'GET',
                     success: function (data) {
-                        var statusHtml = '<p>Robo ligado com sucesso!</p>';
-                        statusHtml += '<p>CABECA:</p>';
-                        statusHtml += '<p>Inclinacao: ' + data.cabeca.inclinacao + '</p>';
-                        statusHtml += '<p>Rotacao: ' + data.cabeca.rotacao + '</p>';
-                        statusHtml += '<p>BRACO DIREITO:</p>';
-                        statusHtml += '<p>Cotovelo: ' + data.bracoDireito.cotovelo + '</p>';
-                        statusHtml += '<p>Pulso: ' + data.bracoDireito.pulso + '</p>';
-                        statusHtml += '<p>BRACO ESQUERDO:</p>';
-                        statusHtml += '<p>Cotovelo: ' + data.bracoEsquerdo.cotovelo + '</p>';
-                        statusHtml += '<p>Pulso: ' + data.bracoEsquerdo.pulso + '</p>';
-                        $('#roboStatus').html(statusHtml);
+                        if (data.cabeca) 
+                        {
+                            var statusHtml = '<p>Robo ligado com sucesso!</p>';
+                            statusHtml += '<p>CABECA:</p>';
+                            statusHtml += '<p>Inclinacao: ' + data.cabeca.inclinacao + '</p>';
+                            statusHtml += '<p>Rotacao: ' + data.cabeca.rotacao + '</p>';
+                            statusHtml += '<p>BRACO DIREITO:</p>';
+                            statusHtml += '<p>Cotovelo: ' + data.bracoDireito.cotovelo + '</p>';
+                            statusHtml += '<p>Pulso: ' + data.bracoDireito.pulso + '</p>';
+                            statusHtml += '<p>BRACO ESQUERDO:</p>';
+                            statusHtml += '<p>Cotovelo: ' + data.bracoEsquerdo.cotovelo + '</p>';
+                            statusHtml += '<p>Pulso: ' + data.bracoEsquerdo.pulso + '</p>';
+                            $('#roboStatus').html(statusHtml);
+                        } else if(data.error) {
+                            $('#roboStatus').html('<p>Erro ao inclinar a cabeca: ' + data.error + '</p>');
+                        } else {
+                            $('#roboStatus').html('<p>Erro desconhecido ao inclinar a cabeca.</p>');
+                        }
                     },
                     error: function () {
-                        $('#roboStatus').html('<p>Erro ao ligar o robo.</p>');
+                        $('#roboStatus').html('<p>Erro ao ligar o robo. </p>');
                     }
                 });
             });
@@ -55,9 +62,15 @@
                     contentType: 'application/json',
                     data: JSON.stringify(parseInt(inclinacao)),
                     success: function (data) {
-                        var statusHtml = '<p>Cabeca inclinada com sucesso!</p>';
-                        statusHtml += '<p>Inclinacao: ' + data.cabeca.inclinacao + '</p>';
-                        $('#roboStatus').html(statusHtml);
+                        if (data.cabeca) {
+                            var statusHtml = '<p>Cabeca inclinada com sucesso!</p>';
+                            statusHtml += '<p>Inclinacao: ' + data.cabeca.inclinacao + '</p>';
+                            $('#roboStatus').html(statusHtml);
+                        } else if (data.error) {
+                            $('#roboStatus').html('<p>Erro ao inclinar a cabeca: ' + data.error + '</p>');
+                        } else {
+                            $('#roboStatus').html('<p>Erro desconhecido ao inclinar a cabeca.</p>');
+                        }
                     },
                     error: function () {
                         $('#roboStatus').html('<p>Erro ao inclinar a cabeca.</p>');
@@ -73,12 +86,18 @@
                     contentType: 'application/json',
                     data: JSON.stringify(parseInt(rotacao)),
                     success: function (data) {
-                        var statusHtml = '<p>Cabeca rotacionada com sucesso!</p>';
-                        statusHtml += '<p>Rotacao: ' + data.cabeca.rotacao + '</p>';
-                        $('#roboStatus').html(statusHtml);
+                        if (data.cabeca) { 
+                            var statusHtml = '<p>Cabeca rotacionada com sucesso!</p>';
+                            statusHtml += '<p>Rotacao: ' + data.cabeca.rotacao + '</p>';
+                            $('#roboStatus').html(statusHtml);
+                        } else if (data.error) {
+                            $('#roboStatus').html('<p>Erro ao inclinar a cabeca: ' + data.error + '</p>');
+                        } else {
+                            $('#roboStatus').html('<p>Erro desconhecido ao inclinar a cabeca.</p>');
+                        }                        
                     },
                     error: function () {
-                        $('#roboStatus').html('<p>Erro ao rotacionar a cabeca.</p>');
+                        $('#roboStatus').html('<p>Erro ao inclinar a cabeca: </p>');
                     }
                 });
             });
@@ -92,9 +111,15 @@
                     contentType: 'application/json',
                     data: JSON.stringify(parseInt(posicao), parseInt(lado)),
                     success: function (data) {
-                        var statusHtml = '<p>Cotovelo movido com sucesso!</p>';
-                        statusHtml += '<p>Cotovelo: ' + data.bracoDireito.cotovelo + '</p>';
-                        $('#roboStatus').html(statusHtml);
+                        if (data.bracoDireito) {
+                            var statusHtml = '<p>Cotovelo movido com sucesso!</p>';
+                            statusHtml += '<p>Cotovelo: ' + data.bracoDireito.cotovelo + '</p>';
+                            $('#roboStatus').html(statusHtml);
+                        } else if(data.error) {
+                            $('#roboStatus').html('<p>Erro ao inclinar a cabeca: ' + data.error + '</p>');
+                        } else {
+                            $('#roboStatus').html('<p>Erro desconhecido ao inclinar a cabeca.</p>');
+                        }
                     },
                     error: function () {
                         $('#roboStatus').html('<p>Erro ao mover o cotovelo.</p>');
@@ -111,9 +136,15 @@
                     contentType: 'application/json',
                     data: JSON.stringify(parseInt(rotacao), parseInt(lado)),
                     success: function (data) {
-                        var statusHtml = '<p>Pulso rotacionado com sucesso!</p>';
-                        statusHtml += '<p>Pulso: ' + data.bracoDireito.pulso + '</p>';
-                        $('#roboStatus').html(statusHtml);
+                        if(data.bracoDireito) {
+                            var statusHtml = '<p>Pulso rotacionado com sucesso!</p>';
+                            statusHtml += '<p>Pulso: ' + data.bracoDireito.pulso + '</p>';
+                            $('#roboStatus').html(statusHtml);
+                        } else if (data.error) {
+                            $('#roboStatus').html('<p>Erro ao inclinar a cabeca: ' + data.error + '</p>');
+                        } else {
+                            $('#roboStatus').html('<p>Erro desconhecido ao inclinar a cabeca.</p>');
+                        }
                     },
                     error: function () {
                         $('#roboStatus').html('<p>Erro ao rotacionar o pulso.</p>');

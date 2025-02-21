@@ -1,6 +1,6 @@
 ﻿using ROBO.Domain.Entities;
 
-namespace ROBO.Domain.Tests
+namespace ROBO.Domain.Tests.Entities
 {
     [TestClass]
     public class PulsoTests
